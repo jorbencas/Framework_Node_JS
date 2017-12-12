@@ -21,7 +21,7 @@ class ContactCtrl {
       var data = {
               name: scope.inputName,
               from: scope.inputEmail,
-              to: 'computersshop2daw@gmail.com',
+              to: 'segui654@gmail.com',
               subject: scope.inputSubject,
               text: scope.inputMessage,
               type: 'admin'
@@ -30,30 +30,19 @@ class ContactCtrl {
       
       this._Contactservice.sendEmail(data).then(function (response) {
         console.log(response);
-        if (response) {
-            data.type = 'admin';
-            console.log(data);
-            // Contactservice.sendEmail(data).then(function (response) {
-            //             if (response) {
-            //                 logger.success('Email sent correctly!');
-            //                 scope.resultMessageOk = 'Email sent correctly!';
-            //                 $timeout(function () {
-            //                     scope.resultMessageOk = '';
-            //                     $state.go('main');
-            //                 }, 3000);
-            //             } else {
-            //                 scope.resultMessageFail = 'Problem sending your email, please try again later!';
-            //                 $timeout(function () {
-            //                     scope.resultMessageFail = '';
-            //                 }, 3000);
-            //             }
-            //         });
-        } else {
-          scope.resultMessage = 'Problem sending your email, please try again later!';
-            $timeout(function () {
-                        scope.resultMessageFail = '';
-                    }, 3000);
-        }
+                        if (response) {
+                            //logger.success('Email sent correctly!');
+                            scope.resultMessageOk = 'Email sent correctly!';
+                            //$timeout(function () {
+                                scope.resultMessageOk = '';
+                                $state.go('main');
+                           // }, 3000);
+                        } else {
+                            scope.resultMessageFail = 'Problem sending your email, please try again later!';
+                            // $timeout(function () {
+                                scope.resultMessageFail = '';
+                            // }, 3000);
+                        }
       });
     };
   }

@@ -40274,7 +40274,7 @@ var AppConstants = {
   //api: 'https://conduit.productionready.io/api',              //Backend: conduit
   //api: 'https://django-angularjs-yomogan.c9users.io:8080/api',  //Backend: Django i NodeJS
 
-  api: 'http:localhost:8080/api',
+  api: 'http://localhost:3000/api',
 
   jwtKey: 'jwtToken',
   appName: 'Conduit'
@@ -40423,7 +40423,7 @@ var ContactCtrl = function ContactCtrl(AppConstants, $scope, Contactservice) {
     var data = {
       name: scope.inputName,
       from: scope.inputEmail,
-      to: 'computersshop2daw@gmail.com',
+      to: 'segui654@gmail.com',
       subject: scope.inputSubject,
       text: scope.inputMessage,
       type: 'admin'
@@ -40433,28 +40433,17 @@ var ContactCtrl = function ContactCtrl(AppConstants, $scope, Contactservice) {
     this._Contactservice.sendEmail(data).then(function (response) {
       console.log(response);
       if (response) {
-        data.type = 'admin';
-        console.log(data);
-        // Contactservice.sendEmail(data).then(function (response) {
-        //             if (response) {
-        //                 logger.success('Email sent correctly!');
-        //                 scope.resultMessageOk = 'Email sent correctly!';
-        //                 $timeout(function () {
-        //                     scope.resultMessageOk = '';
-        //                     $state.go('main');
-        //                 }, 3000);
-        //             } else {
-        //                 scope.resultMessageFail = 'Problem sending your email, please try again later!';
-        //                 $timeout(function () {
-        //                     scope.resultMessageFail = '';
-        //                 }, 3000);
-        //             }
-        //         });
+        //logger.success('Email sent correctly!');
+        scope.resultMessageOk = 'Email sent correctly!';
+        //$timeout(function () {
+        scope.resultMessageOk = '';
+        $state.go('main');
+        // }, 3000);
       } else {
-        scope.resultMessage = 'Problem sending your email, please try again later!';
-        $timeout(function () {
-          scope.resultMessageFail = '';
-        }, 3000);
+        scope.resultMessageFail = 'Problem sending your email, please try again later!';
+        // $timeout(function () {
+        scope.resultMessageFail = '';
+        // }, 3000);
       }
     });
   };
@@ -41041,12 +41030,12 @@ var Contactservice = function () {
 
   _createClass(Contactservice, [{
     key: 'sendEmail',
-    value: function sendEmail(dada) {
-      console.log(dada);
+    value: function sendEmail(payload) {
+      console.log(payload);
       return this._$http({
-        url: 'api/sendmail',
+        url: this._AppConstants.api + '/contact',
         method: 'POST',
-        data: dada
+        data: payload
       }).then(success).catch(fail);
       function success() {
         return true;

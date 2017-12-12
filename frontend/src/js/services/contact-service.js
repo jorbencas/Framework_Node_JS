@@ -6,12 +6,12 @@
         this._$http = $http;
       }
 
-      sendEmail(dada) {
-        console.log(dada);
+      sendEmail(payload) {
+        console.log(payload);
         return this._$http({ 
-         url: 'api/sendmail',
+         url: this._AppConstants.api + '/contact',
          method:'POST',
-         data:dada
+         data:payload
         }).then(success)
           .catch(fail);
         function success() {
@@ -20,6 +20,6 @@
         function fail() {
           return false;
         }
-      }
+    }
       
 }
