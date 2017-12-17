@@ -24,4 +24,7 @@ servicesModule.service('Tags', TagsService);
 import Contactservice from './contact-service';
 servicesModule.service('Contactservice',Contactservice);
 
+import Computerservice from './computer.service';
+servicesModule.service('Computerservice',Computerservice);
+
 export default servicesModule;

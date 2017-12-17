@@ -33,12 +33,13 @@ if (!isProduction) {
 if(isProduction){
   mongoose.connect(process.env.MONGODB_URI);
 } else {
-  mongoose.connect('mongodb://localhost/conduit');
+  mongoose.connect('mongodb://localhost:27017/computer');
   mongoose.set('debug', true);
 }
 
 require('./models/User');
 require('./models/Article');
+require('./models/Computer');
 require('./models/Comment');
 require('./config/passport');
 // app.use(require('./utils'));
@@ -79,7 +80,7 @@ app.use(function(err, req, res, next) {
 });
 
 // finally, let's start our server...
-var server = app.listen( process.env.PORT || 3000, function(){
+var server = app.listen( process.env.PORT || 8080, function(){
   console.log('Listening on port ' + server.address().port);
   console.log('Hola Pepito');
 });

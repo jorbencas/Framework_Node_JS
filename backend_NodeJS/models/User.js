@@ -11,7 +11,7 @@ var UserSchema = new mongoose.Schema({
   image: String,
   favorites: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Article' }],
   following: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
-  hash: String,
+  hash: String, 
   salt: String
 }, {timestamps: true});
 
