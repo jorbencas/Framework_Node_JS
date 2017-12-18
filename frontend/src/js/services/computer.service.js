@@ -13,7 +13,8 @@ export default class Computer {
       url: this._AppConstants.api + '/computer',
       method: 'GET',
     }).then((res) => res.data);
-    console.log(res.data.Computer);
+    // console.log(res.data);
+    //return res.data;
   }
 
 }
