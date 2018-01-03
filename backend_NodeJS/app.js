@@ -31,10 +31,10 @@ if (!isProduction) {
 }
 
 if(isProduction){
-  //mongoose.connect(process.env.MONGODB_URI);
+  mongoose.connect(process.env.MONGODB_URI);
 } else {
-  mongoose.connect('mongodb://localhost/');
-  //mongoose.set('debug', true);
+  mongoose.connect('mongodb://localhost/computers');
+  mongoose.set('debug', true);
 }
 
 require('./models/User');
@@ -42,7 +42,7 @@ require('./models/Article');
 require('./models/Computer');
 require('./models/Comment');
 require('./config/passport');
-// app.use(require('./utils'));
+
 app.use(require('./routes'));
 
 /// catch 404 and forward to error handler
