@@ -15,4 +15,14 @@ export default class Computer {
     }).then((res) => res.data);
   }
 
+  getOne(type) {
+    console.log('GetOne' + type);
+    return this._$http({
+      url: this._AppConstants.api + '/computer/' + type,
+      method: 'GET',
+    }).then((res) => res.data);
+   console.log(res.data);
+  return res.data;
+}
+
 }

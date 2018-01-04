@@ -1,6 +1,7 @@
 class ListCtrl {
-  constructor(User, Computerservice, AppConstants, $scope) {
+  constructor(User, Computerservice,categorias, AppConstants, $scope) {
     'ngInject';
+    this._categorias = categorias;
     this.appName = AppConstants.appName;
     this._$scope = $scope;
     this._Computerservice = Computerservice;
@@ -8,16 +9,21 @@ class ListCtrl {
     var scope = this;
     scope.computer= [];
     scope.shop=[];
+    // console.log(this._categorias);
 
-    Computerservice.getAll().then(
-      (obj) => {
-        console.log(obj.computer);
-        obj.computer.forEach(function(param){
-          scope.computer.push(param);
-        });
-        console.log(scope.computer);
-      }
-    );
+      this._Computerservice.getAll().then(
+        (obj) => {
+          obj.computer.forEach(function(param){
+            console.log(param.type + categorias.type);
+            if ( param.type == categorias.type) {
+              scope.computer.push(param);
+            }else if (categorias.type == "" ) {
+              scope.computer.push(param);
+            }
+          });
+          // console.log(scope.computer);
+        }
+      );
    }
   }
   
