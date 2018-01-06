@@ -45143,10 +45143,13 @@ function ListConfig($stateProvider) {
     controllerAs: 'scope',
     templateUrl: 'list/list.html',
     resolve: {
-      categorias: ["$stateParams", function categorias($stateParams) {
-        // console.log($stateParams.type);
-        // return Computerservice.getOne($stateParams.type);
-        return $stateParams;
+      categorias: ["Computerservice", "$stateParams", function categorias(Computerservice, $stateParams) {
+        console.log($stateParams.type);
+        return Computerservice.getOne($stateParams.type).then(function (categorias) {
+          return categorias;
+        }, function (err) {
+          return $state.go('app.home');
+        });
       }]
     }
   }).state('app.details', {
@@ -45155,9 +45158,13 @@ function ListConfig($stateProvider) {
     controllerAs: 'scope',
     templateUrl: 'list/list.details.html',
     resolve: {
-      details: ["$stateParams", function details($stateParams) {
-        //console.log($stateParams);
-        return $stateParams;
+      details: ["Computerservice", "$stateParams", function details(Computerservice, $stateParams) {
+        console.log($stateParams.id);
+        return Computerservice.get($stateParams.id).then(function (details) {
+          return details;
+        }, function (err) {
+          return $state.go('app.list');
+        });
       }]
     }
   });
@@ -45186,20 +45193,19 @@ var ListCtrl = function ListCtrl(User, Computerservice, categorias, AppConstants
 
   var scope = this;
   scope.computer = [];
-  scope.shop = [];
-  // console.log(this._categorias);
 
-  this._Computerservice.getAll().then(function (obj) {
-    obj.computer.forEach(function (param) {
-      console.log(param.type + categorias.type);
-      if (param.type == categorias.type) {
-        scope.computer.push(param);
-      } else if (categorias.type == "") {
-        scope.computer.push(param);
-      }
+  if (this._categorias !== "") {
+    this._categorias.computer.forEach(function (param) {
+      scope.computer.push(param);
     });
-    // console.log(scope.computer);
-  });
+  } else if (this._categorias === "") {
+    this._Computerservice.getAll().then(function (obj) {
+      obj.computer.forEach(function (param) {
+        scope.computer.push(param);
+      });
+      console.log(scope.computer);
+    });
+  }
 };
 ListCtrl.$inject = ["User", "Computerservice", "categorias", "AppConstants", "$scope"];
 
@@ -45217,6 +45223,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 var DetailsCtrl = function DetailsCtrl(User, $stateParams, AppConstants, $scope, details, Computerservice) {
   'ngInject';
 
+  var _this = this;
+
   _classCallCheck(this, DetailsCtrl);
 
   this.details = details;
@@ -45229,11 +45237,11 @@ var DetailsCtrl = function DetailsCtrl(User, $stateParams, AppConstants, $scope,
   scope.shop = [];
 
   Computerservice.getAll().then(function (obj) {
-    obj.computer.forEach(function (param) {
+    _this.details.computer.forEach(function (param) {
       console.log(details.id);
-      if (param._id == details.id) {
-        scope.computer.push(param);
-      }
+      // if(param._id==details.id){
+      scope.computer.push(param);
+      // }
     });
     console.log(scope.computer);
   });
@@ -45454,6 +45462,18 @@ var Computer = function () {
       });
     }
   }, {
+    key: 'get',
+    value: function get(id) {
+      console.log('Get' + id);
+      return this._$http({
+        url: this._AppConstants.api + '/computer/' + id,
+        method: 'POST'
+      }).then(function (res) {
+        return res.data;
+      });
+      console.log(res);
+    }
+  }, {
     key: 'getOne',
     value: function getOne(type) {
       console.log('GetOne' + type);
@@ -45463,8 +45483,8 @@ var Computer = function () {
       }).then(function (res) {
         return res.data;
       });
-      console.log(res.data);
-      return res.data;
+      console.log(res);
+      // return res.data;
     }
   }]);
 

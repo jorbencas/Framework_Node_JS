@@ -12,11 +12,11 @@ class DetailsCtrl {
 
       Computerservice.getAll().then(
         (obj) => {
-            obj.computer.forEach(function(param){
+            this.details.computer.forEach(function(param){
               console.log(details.id);
-                if(param._id==details.id){
+                // if(param._id==details.id){
                 scope.computer.push(param);
-                }
+                // }
               });
           console.log(scope.computer);
         }

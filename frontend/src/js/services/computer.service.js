@@ -15,14 +15,23 @@ export default class Computer {
     }).then((res) => res.data);
   }
 
+  get(id){
+    console.log('Get' + id);
+    return this._$http({
+      url: this._AppConstants.api + '/computer/' + id,
+      method: 'POST',
+    }).then((res) => res.data);
+    console.log(res);
+  }
+
   getOne(type) {
     console.log('GetOne' + type);
     return this._$http({
       url: this._AppConstants.api + '/computer/' + type,
       method: 'GET',
     }).then((res) => res.data);
-   console.log(res.data);
-  return res.data;
+   console.log(res);
+ // return res.data;
 }
 
 }

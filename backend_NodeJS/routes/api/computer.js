@@ -11,11 +11,18 @@ router.get('/', function(req, res, next) {
   }).catch(next);
 });
 
-// router.post('/', function(req, res, next) {
-//   console.log('hola');
-//   Computer.findOne(/*{ type: type}*/).then(function (computer) {
-//       return res.json({computer: computer});
-//   }).catch(next);
-// });
+router.post('/:id', function(req, res, next) {
+  console.log('Getid' + req.params.id);
+  Computer.find({ _id: req.params.id}).then(function (computer) {
+      return res.json({computer: computer});
+  }).catch(next);
+});
+
+router.get('/:type', function(req, res, next) {
+  console.log('hola');
+  Computer.find({ type: req.params.type}).then(function (computer) {
+      return res.json({computer: computer});
+  }).catch(next);
+});
 
 module.exports = router;
