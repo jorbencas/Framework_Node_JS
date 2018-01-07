@@ -7,9 +7,12 @@ class SettingsCtrl {
 
     this.formData = {
       email: User.current.email,
-      bio: User.current.bio,
+      name: User.current.name,
+      apellidos: User.current.apellidos,
       image: User.current.image,
-      username: User.current.username
+      username: User.current.username,
+      date_birthday: User.current.date_birthday,
+      dni: User.current.dni
     }
     this.logout = User.logout.bind(User);
   }
