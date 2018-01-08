@@ -3852,9 +3852,8 @@
 		margin-left: 10px;
 		background-color: #3a3c6a;
 		float: left;
+		display: inline-block;
 	}
-
-	
 
 	#pager{
 		padding-right: 80%;

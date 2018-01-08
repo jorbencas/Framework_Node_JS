@@ -15,13 +15,13 @@
                 <li class="nav-item">
                     <a  ui-sref-active="active" ui-sref="app.list"><span>Ofertas</span></a>
                 </li>
-                  
+                
                 <li class="nav-item">
-                    <a ui-sref-active="active" ui-sref="app.login" class="button special" >Acceder</a>
+                    <a ui-sref-active="active" ui-sref="app.register" style="color:red!important;">Sign Up</a>
                 </li>
-                 
+
                 <li class="nav-item">
-                    <a ui-sref-active="active" ui-sref='app.profile'><img ng-show="profileV" id='menuImg' class='icon rounded'/>{{nombre}}</a>
+                    <a ui-sref-active="active" ui-sref="app.login" style="color:red!important;">Log in</a>
                 </li>
             </ul>
                
@@ -38,7 +38,7 @@
                 <li class="nav-item">
                     <a  ui-sref-active="active" ui-sref="app.list"><span>Ofertas</span></a>
                  </li>
-            
+
                 <li class="nav-item">
                     <a class="nav-link" ui-sref-active="active" ui-sref="app.profile.main({ username: $ctrl.currentUser.username})">
                         <img ng-src="{{$ctrl.currentUser.image}}" class="user-pic" />

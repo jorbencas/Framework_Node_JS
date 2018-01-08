@@ -25,7 +25,7 @@ function AuthConfig($stateProvider, $httpProvider) {
         return User.ensureAuthIs(false);
       }
     }
-  });
+  })
 
 };
 

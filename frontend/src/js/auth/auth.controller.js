@@ -16,7 +16,7 @@ class AuthCtrl {
     this._User.attemptAuth(this.authType, this.formData).then(
       (res) => {
         setTimeout(() => {
-          this._toastr.success('Revise su bandeja de entrada para activar su cuenta','activación');
+          this._toastr.success('Sucuenta se ha creado correctemente.','Bienvenido');
         },800); 
         this._$state.go('app.home');
       },
