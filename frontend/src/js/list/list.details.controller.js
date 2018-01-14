@@ -1,6 +1,7 @@
 class DetailsCtrl {
     constructor(User, $stateParams, AppConstants, $scope, details, Computerservice) {
       'ngInject';
+    
       this.details = details;
       this._Computerservice = Computerservice;
       this._$scope = $scope;

@@ -14,8 +14,10 @@
   },
   "license": "ISC",
   "dependencies": {
+    "angular-stripe": "^5.0.0",
     "body-parser": "1.15.0",
     "cors": "2.7.1",
+    "dotenv": "^4.0.0",
     "ejs": "2.4.1",
     "errorhandler": "1.4.3",
     "express": "4.13.4",
@@ -29,9 +31,12 @@
     "morgan": "1.7.0",
     "nodemailer": "^4.4.1",
     "passport": "0.3.2",
+    "passport-facebook": "^2.1.1",
     "passport-local": "1.0.0",
+    "passport-twitter": "^1.0.4",
     "request": "2.69.0",
     "slug": "0.9.1",
+    "stripe": "^5.4.0",
     "underscore": "1.8.3"
   },
   "devDependencies": {

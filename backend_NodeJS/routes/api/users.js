@@ -3,6 +3,8 @@ var router = require('express').Router();
 var passport = require('passport');
 var User = mongoose.model('User');
 var auth = require('../auth');
+var stripe = require("stripe")('APY-KEY');
+var Computer = mongoose.model('Computer');
 
 router.get('/user', auth.required, function(req, res, next){
   User.findById(req.payload.id).then(function(user){
@@ -50,6 +52,25 @@ router.put('/user', auth.required, function(req, res, next){
   }).catch(next);
 });
 
+router.post('/users', function(req, res, next){
+  let memorystore = req.sessionStore;
+  let sessions = memorystore.sessions;
+  let sessionUser;
+  for(var key in sessions){
+    sessionUser = (JSON.parse(sessions[key]).passport.user);
+  }
+    var user = new User();
+    user.email = sessionUser.email;
+    user.username = sessionUser.username;
+
+    if(user){
+      user.token = user.generateJWT();
+      return res.json({user: user.toAuthJSON()});
+    } else {
+      return res.status(422).json('fail');
+    }
+})
+
 router.post('/users/login', function(req, res, next){
   if(!req.body.user.email){
     return res.status(422).json({errors: {email: "can't be blank"}});
@@ -82,5 +103,50 @@ router.post('/users', function(req, res, next){
     return res.json({user: user.toAuthJSON()});
   }).catch(next);
 });
+
+/*----FACEBOOK----*/
+router.get('/facebook', passport.authenticate('facebook', {scope: ['email', 'public_profile']}));
+router.get('/auth/facebook/callback',
+    passport.authenticate('facebook',
+    { successRedirect: 'http://localhost:8081/#!/social', failureRedirect: 'http://localhost:8081/#!/register' }));
+
+/*----TWITTER----*/
+router.get('/api/twitter', passport.authenticate('twitter'));
+router.get('/api/auth/twitter/callback',
+    passport.authenticate('twitter',
+    { successRedirect: 'http://localhost:8081/#!/social', failureRedirect: 'http://localhost:8081/#!/register' }));
+
+/*----ROUTE TO RETURN SOCIAL LOGGED USER----*/
+//router.get('/api/auth/success', usersController.success);
+
+router.post("/charge" , (req, res) => {
+  
+    console.log(req.body.payment);
+    stripe.customers.create({
+       email: req.body.stripeEmail,
+      source: req.body.stripeToken
+    })
+    .then(customer =>
+      Computer.find().then(function(computer){
+        console.log(computer);
+        stripe.charges.create({
+          amount: 322,
+          description: "Sample Charge",
+             currency: "eur",
+             customer: customer.id
+        })
+        .then(
+           Computer.update({ _id:req.body.payment}, {$inc:{"shop.0.stock":10}})  
+          // computer.save()
+        )
+        console.log(computer);
+      })
+  
+      )
+    .then( charge => res.redirect('http://localhost:8081//#!/details/' + req.body.payment)
+    // , res.send(toastr.success('Sucuenta se ha creado correctemente.','Bienvenido'))
+      );
+  });
+
 
 module.exports = router;

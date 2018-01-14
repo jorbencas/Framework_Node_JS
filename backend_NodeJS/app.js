@@ -8,6 +8,7 @@ var http = require('http'),
     passport = require('passport'),
     errorhandler = require('errorhandler'),
     mongoose = require('mongoose');
+    dotenv= require('dotenv').config();
 
 var isProduction = process.env.NODE_ENV === 'production';
 
@@ -42,6 +43,9 @@ require('./models/User');
 require('./models/Computer');
 // require('./models/Comment');
 require('./config/passport');
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use(require('./routes'));
 

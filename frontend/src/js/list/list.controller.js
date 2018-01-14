@@ -11,6 +11,7 @@ class ListCtrl {
 
     if (this._categorias !== "") {
       this._categorias.computer.forEach(function(param){
+        console.log(param);
         scope.computer.push(param);
       });
     }else if(this._categorias === ""){
@@ -23,7 +24,6 @@ class ListCtrl {
         }
       );
     }
-      
    }
   }
   

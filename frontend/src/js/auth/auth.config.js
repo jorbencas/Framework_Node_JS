@@ -27,6 +27,15 @@ function AuthConfig($stateProvider, $httpProvider) {
     }
   })
 
+  .state('app.social',{
+    url: '/social',
+    controller: 'SocialCtrl as $crtl',
+    resolve: {
+      auth: function(User) {
+        return User.ensureAuthIs(false);
+      }
+    }
+  })
 };
 
 export default AuthConfig;

@@ -1,6 +1,7 @@
+
 <div class="details-page" >
+    <div class="contentof">
     <div ng-repeat="c in scope.computer">
-      <div class="contentof">
           <div class="imageof"><img src="{{c.picture}}" alt="" height="150px" width="150px"></div>
           <div class="nombre">{{c.name}}</div>
           <div class="nombre">{{c.date}}</div>
@@ -24,6 +25,23 @@
                     </info-window>
               </ng-map>
             </div>
+            <form action="http://localhost:8080/api/charge" method="POST">
+              <input type="hidden" name="payment" value="{{c._id}}">
+              <script
+              src="https://checkout.stripe.com/checkout.js" 
+              class="stripe-button"
+              data-key="pk_test_WMqiVRs7QV6k0qzCU7FCl3Ji"
+              data-amount="320"
+              data-name="Pay with Stripe on FarmixShop"
+              data-description="A VIP (3.00€)"
+              data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+              data-label="Pay with Card Credit"
+              data-locale="auto"
+              data-currency="eur">
+              </script>
+          </form>
      </div>
+    
   </div>
+ 
 </div>
